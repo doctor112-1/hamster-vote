@@ -6,10 +6,13 @@ const element = document.getElementById("hamsterLeaderboard")
 console.log(response)
 
 if (response == "[]") {
-  const result = document.createElement("p")
+  let div = document.createElement("div")
+  div.classList.add("h1Div")
+  const result = document.createElement("h1")
   const node = document.createTextNode("No hamsters have been voted yet")
   result.appendChild(node)
-  element.appendChild(result)
+  div.appendChild(result)
+  element.appendChild(div)
 } else {
   const table = document.createElement("table")
   const tableHead = document.createElement("thead")
