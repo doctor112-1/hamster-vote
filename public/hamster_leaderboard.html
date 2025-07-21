@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hamster Vote</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap" rel="stylesheet">
+    <script src="fetchHamsterLeaderboard.js" type="module"></script>
+    <style>
+      table, th, td {
+        border:1px solid black;
+      }
+      
+      th {
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 900;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+      }
+
+      td {
+        font-family: "Noto Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
+        padding: 0.6em;
+        text-align: center;
+      }
+
+      table {
+        table-layout: fixed;
+        width: 80%;
+        min-width: 100px;
+        margin: 0 auto;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="h1Div">
+      <h1>Hamster Leaderboard</h1>
+    </div>
+    <div id="hamsterLeaderboard" class="hamsterLeaderboard">
+    </div>
+    <div class="credits">
+      <p>hamster images from pixabay</p>
+    </div>
+  </body>
+</html>

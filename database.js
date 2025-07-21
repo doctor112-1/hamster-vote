@@ -1,64 +1,9 @@
 import { open } from 'lmdb'
-import 'dotenv/config'
 
-const key = process.env.PIXABAY_API_KEY
-
-let arrayOfHitsToUse = []
-
-async function fetchImages(key, page) {
-  const url = `https://pixabay.com/api/?key=${key}&per_page=10&page=${page}&q=hamster`
-
-  try {
-    const response = await fetch(url)
-
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`)
-    }
-
-    const json = await response.json()
-    return json
-  } catch (error) {
-    console.error(error.message)
-  }
-}
-
-let response = await fetchImages(key, 1)
-
-let totalHits = response.totalHits
-
-totalHits -= 10
-
-let pageNumber = 1
-
-while (totalHits >= 10) {
-  totalHits -= 10
-  pageNumber++
-}
-
-if (totalHits < 10 && totalHits != 0) {
-  pageNumber++
-}
-
-response = response.hits
-
-for (let i = 1; i < pageNumber; i++) {
-  let responseTemp = await fetchImages(key, i)
-  responseTemp = responseTemp.hits
-  response = response.concat(responseTemp);
-}
-
-for (let i = 0; i < Object.keys(response).length; i++) {
-  if (response[i].tags.includes("toilet")) {
-  } else {
-    arrayOfHitsToUse.push(i)
-  }
-}
-
-export const mapOfHamsters = new Map()
-
-for (let i = 0; i < arrayOfHitsToUse.length; i++) {
-  mapOfHamsters.set(i, response[i].previewURL)
-}
+let hamsterDB = open({
+	path: 'hamsterDB',
+	compression: true,
+});
 
 let hamsterPairs = open({
 	path: 'hamsterPairs',
@@ -71,8 +16,14 @@ let hamsterVotes = open({
 	compression: true,
 });
 
-export async function addVotesforHamster(key, value) {
-  await hamsterVotes.put(key, value)
+export async function addVotesForHamster(key) {
+  let vote = hamsterVotes.get(key)
+  if (isNaN(vote)) {
+    await hamsterVotes.put(key, 1)
+  } else {
+    vote++
+    await hamsterVotes.put(key, vote)
+  }
 }
 
 export function getAllHamsterVotes() {
@@ -109,4 +60,22 @@ export async function checkHamsterPairs(key1, key2) {
 
   await hamsterPairs.put(key1, key2)
   return true
+}
+
+export async function addHamster(key, value) {
+  await hamsterDB.put(key, value)
+}
+
+export function getAllHamsters() {
+  let allKeys = []
+  let allValues = []
+  for (let { key, value } of hamsterDB.getRange()) {
+    allKeys.push(key)
+    allValues.push(value)
+  }
+  return [allKeys, allValues]
+}
+
+export function getHamster(key) {
+  return hamsterDB.get(key)
 }
