@@ -43,7 +43,7 @@ eventSource.onmessage = (event) => {
       document.cookie = "voted = false; expires=Thu, 5 March 2030 12:00:00 UTC; path=/";
       oldData = data
     } else {
-      if (getCookie("voted") == "false") {
+      if (getCookie("voted") == "false" || getCookie("voted") == null) {
         let hamsterTable = document.createElement("table")
         let hamsterTableRow = document.createElement("tr")
         hamsterTable.appendChild(hamsterTableRow)
