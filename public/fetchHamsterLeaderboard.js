@@ -37,7 +37,7 @@ if (response == "[]") {
     const tableRowHamsterData = document.createElement("tr")
     const tableRowHamsterDataName = document.createElement("td")
     let tableRowHamsterDataNameLink = document.createElement("a")
-    tableRowHamsterDataNameLink.href("images/" + response[i].slice(1, response[i].length).slice(0, -1))
+    tableRowHamsterDataNameLink.href = "images/" + response[i].slice(1, response[i].length).slice(0, -1)
     const tableRowHamsterDataNameLinkText = document.createTextNode(response[i].slice(1, response[i].length).slice(0, -1))
     tableRowHamsterDataNameLink.appendChild(tableRowHamsterDataNameLinkText)
     const tableRowHamsterDataVote = document.createElement("td")
