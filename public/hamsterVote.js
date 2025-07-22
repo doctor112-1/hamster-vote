@@ -18,6 +18,12 @@ eventSource.onmessage = (event) => {
   let data = event.data
   data = data.split(",")
   console.log(data)
+  if (getCookie("oldData") == data[1]) {
+    
+  } else {
+    document.cookie = "voted = false; expires=Thu, 5 March 2030 12:00:00 UTC; path=/";
+  }
+  document.cookie = `oldData = ${data[1]}; expires=Thu, 5 March 2030 12:00:00 UTC; path=/`; 
   if (oldData.length != data.length) {
     hamsterVote.innerHTML = ""
     if (data[0] == "voting closed") {
