@@ -6,7 +6,7 @@ Vote for your favorite hamster!
 
 ### Prerequisites
 
-Node.js, npm, and git installed
+Node.js, npm, and git installed  
 A pixabay api key
 
 ### Clone this repo
