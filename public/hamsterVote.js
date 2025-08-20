@@ -1,33 +1,31 @@
 const eventSource = new EventSource("votingPair")
-const hamsterVote = document.getElementById("hamsterVote") 
+const hamsterVote = document.getElementById("hamsterVote")
 let oldData = "sladnad";
 
 // thank you geeksforgeeks, i don't know what i would ever do without you or stackoverflow
 function getCookie(cookieName) {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        const [name, value] = cookie.split('=');
-        if (name === cookieName) {
-            return decodeURIComponent(value);
-        }
+  const cookies = document.cookie.split('; ');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split('=');
+    if (name === cookieName) {
+      return decodeURIComponent(value);
     }
-    return null;
+  }
+  return null;
 }
 
 eventSource.onmessage = (event) => {
   let data = event.data
   data = data.split(",")
-  console.log(data)
   if (getCookie("oldData") == data[1]) {
-    
+
   } else {
     document.cookie = "voted = false; expires=Thu, 5 March 2030 12:00:00 UTC; path=/";
   }
-  document.cookie = `oldData = ${data[1]}; expires=Thu, 5 March 2030 12:00:00 UTC; path=/`; 
+  document.cookie = `oldData = ${data[1]}; expires=Thu, 5 March 2030 12:00:00 UTC; path=/`;
   if (oldData.length != data.length) {
     hamsterVote.innerHTML = ""
     if (data[0] == "voting closed") {
-      console.log(data)
       if (data[1] == "0") {
         const result = document.createElement("p")
         const node = document.createTextNode("Tie")
@@ -107,7 +105,7 @@ eventSource.onmessage = (event) => {
               "vote": "1"
             })
           })
-        
+
           hamsterVote.innerHTML = ""
           document.cookie = "voted = true; expires=Thu, 5 March 2030 12:00:00 UTC; path=/";
           const result = document.createElement("h1")

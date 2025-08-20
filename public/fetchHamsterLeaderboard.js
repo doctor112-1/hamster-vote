@@ -3,7 +3,6 @@
 let response = await fetch("hamsterVotes")
 response = await response.text()
 const element = document.getElementById("hamsterLeaderboard")
-console.log(response)
 
 if (response == "[]") {
   let div = document.createElement("div")
@@ -31,7 +30,6 @@ if (response == "[]") {
   response = response.slice(1, response.length)
   response = response.slice(0, -1)
   response = response.split(",")
-  console.log(response)
 
   for (let i = 0; i < response.length; i++) {
     const tableRowHamsterData = document.createElement("tr")

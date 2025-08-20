@@ -27,7 +27,6 @@ let voteOne = 0
 let voteTwo = 0
 
 worker.on('message', async (result) => {
-  console.log(result)
   isVotingOpen = true
   if (result == "voting closed") {
     isVotingOpen = false
@@ -59,7 +58,7 @@ app.get('/votingPair', (req, res) => {
   let interval = setInterval(() => {
     res.write(`data: ${votingPair}\n\n`)
   }, 2000);
-  
+
   res.on('close', () => {
     clearInterval(interval)
     res.end()
@@ -72,7 +71,6 @@ app.get('/hamsterVotes', (req, res) => {
 
 app.post('/vote', async (req, res) => {
   if (isVotingOpen) {
-    console.log(req.body)
     if (req.body.vote == "1") {
       voteOne++
       res.send("voted successfully")
@@ -85,6 +83,10 @@ app.post('/vote', async (req, res) => {
   } else {
     res.send("voting not open")
   }
+})
+
+app.get('/getVotes', (req, res) => {
+  res.send(`${voteOne} ${voteTwo}`)
 })
 
 app.listen(port, () => {
