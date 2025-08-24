@@ -43,13 +43,6 @@
     "wdth" 100;
 }
 
-.hamsterLeaderboard {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .h1Div {
   text-align: center;
   font-family: "Noto Sans", sans-serif;

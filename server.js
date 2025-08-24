@@ -5,6 +5,7 @@ import { hamsterDBArray } from './startup.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { Worker } from 'worker_threads';
+import { argv0 } from 'process';
 
 const app = express()
 const port = process.env.PORT
@@ -35,14 +36,20 @@ worker.on('message', async (result) => {
       let oldVotingPair = votingPair
       votingPair = result
       votingPair = votingPair + ",2" + "," + oldVotingPair[2]
+      voteOne = 0
+      voteTwo = 0
     } else if (voteTwo < voteOne) {
       await addVotesForHamster(votingPair[0])
       let oldVotingPair = votingPair
       votingPair = result
       votingPair = votingPair + ",1" + "," + oldVotingPair[0]
+      voteOne = 0
+      voteTwo = 0
     } else {
       votingPair = result
       votingPair = votingPair + ",0"
+      voteOne = 0
+      voteTwo = 0
     }
   } else {
     votingPair = result
